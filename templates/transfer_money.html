@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pul O'tkazish</title>
+</head>
+<body>
+    <h3>Pul O'tkazish</h3>
+    <form method="POST">
+        <p>From Username</p>
+        <input type="text" name="from_username">
+        <p>How much transfer money</p>
+        <input type="number" name="balance"><br><br>
+        <p>To Username</p>
+        <input type="text" name="to_username"><br><br>
+        <input type="submit" value="Transfer">
+    </form>
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+</body>
+</html>
