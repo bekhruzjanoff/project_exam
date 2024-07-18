@@ -1,22 +1,69 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>User Page</title>
+    <title>Show Balance</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .show-balance-form {
+            max-width: 400px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .show-balance-form label {
+            font-weight: bold;
+        }
+        .show-balance-form input[type="text"],
+        .show-balance-form button {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h3>Show Balance</h3>
-     <form method="post">
-        <label>Username:</label>
-        <input type="text" name="username" required><br>
-        <button type="submit">Show Balance</button>
-    </form>
-     {% if balance %}
-        <p>{{ username , balance }}</p>
-    {% endif %}
+    <div class="container">
+        <h3 class="text-center mb-4">Show Balance</h3>
+        <div class="show-balance-form">
+            <form method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username:</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Show Balance</button>
+            </form>
+            {% if balance %}
+                <p>{{ username }}, Balance: {{ balance }}</p>
+            {% endif %}
+        </div>
+        <br><a href="{{ url_for('user_menu') }}" class="btn btn-primary">Back to User Menu</a>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Your custom JavaScript -->
+    <script>
+        // Example: Handle form submission (not extensively used here)
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // You can add AJAX or other form handling logic here if needed
+        });
+    </script>
+
 
 </body>
 </html>
