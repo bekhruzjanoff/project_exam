@@ -192,11 +192,32 @@ def transfer_money():
 
     return render_template("transfer_money.html", message=message)
 
+@app.route('/user_menu')
+def user_menu():
+    # Logic to render user menu page (user_menu.html)
+    return render_template('user_menu.html')
+
 
 @app.route("/transfer_history")
 def transfer_history():
     transfers = TransferHistory.query.order_by(TransferHistory.timestamp.desc()).all()
     return render_template("transfer_history.html", transfers=transfers)
+
+
+@app.route("/delete_account", methods=["GET", "POST"])
+def delete_account():
+    if request.method == "POST":
+        username = request.form.get("username")
+        user = User_Database.query.filter_by(username=username).first()
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            message = "User successfully deleted"
+        else:
+            message = "User not found"
+        return render_template("delete_account.html", message=message)
+    else:
+        return render_template("delete_account.html")
 
 
 if __name__ == "__main__":
