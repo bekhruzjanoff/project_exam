@@ -129,29 +129,36 @@ def add_balance():
         username = request.form.get("username")
         balance = request.form.get("balance")
 
-        # Basic validation
+        
         if not all([username, balance]):
-            message = "Please fill out all fields."
+            message = "Пожалуйста, заполните все поля."
             return render_template("add_balance.html", message=message)
 
-        # Convert balance to a float
+        
         try:
             balance = float(balance)
         except ValueError:
-            message = "Invalid balance amount."
+            message = "Неверный формат суммы баланса."
             return render_template("add_balance.html", message=message)
 
-        # Create new balance record
-        u1 = User_Database(username=username, balance=balance)
+       
+        existing_user = User_Database.query.filter_by(username=username).first()
+       
+        if existing_user:
+            
+            existing_user.balance += float(balance)  
+            db.session.commit()
+            message = "Баланс успешно обновлен!"
+            return render_template("add_balance.html", message=message)
 
-        # Add to database
+        
+        u1 = User_Database(username=username, balance=balance)
         db.session.add(u1)
         db.session.commit()
 
-        # Success message
-        message = "Balance successfully added"
+       
+        message = "Баланс успешно добавлен"
         return render_template("add_balance.html", message=message)
-
 
 @app.route("/transfer_money", methods=["GET", "POST"])
 def transfer_money():
